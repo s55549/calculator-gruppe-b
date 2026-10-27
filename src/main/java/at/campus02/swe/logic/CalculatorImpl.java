@@ -34,6 +34,9 @@ public class CalculatorImpl implements Calculator {
         return 0;
     }
 
+    //TEST
+    //COMMIT
+
     @Override
     public double pop() throws CalculatorException {
         if (stack_.isEmpty())
