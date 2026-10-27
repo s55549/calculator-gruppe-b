@@ -10,7 +10,7 @@ import at.campus02.swe.Calculator;
 import at.campus02.swe.Calculator.Operation;
 
 
-public class ParserTest {
+public class cParserTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testNullParser() {
