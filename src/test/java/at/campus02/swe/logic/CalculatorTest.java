@@ -63,7 +63,7 @@ public class CalculatorTest {
     }
 
     @Test
-    public void testDivisionByZero() throws Exception {
+    public void testDivisionByZero() {
 
         //Setup
         Calculator calc = new CalculatorImpl();
@@ -77,47 +77,61 @@ public class CalculatorTest {
 
         } catch (CalculatorException e) {
             assertEquals("Division by zero", e.getMessage());
-            // e.getCause()
         }
 
     }
 
     @Test
-    public void testModOperation() throws Exception {
-
+    public void testSinOperation() throws Exception {
         Calculator calc = new CalculatorImpl();
-        calc.push(7);
-        calc.push(3);
-        double result = calc.perform(Operation.mod);
+        calc.push(0);
+        double result = calc.perform(Operation.sin);
 
-        assertEquals(1, result, 0);
-
-    }
-
-    @Test
-    public void testModOperation1() throws Exception {
-
-        Calculator calc = new CalculatorImpl();
-        calc.push(8);
-        calc.push(4);
-
-        double result = calc.perform(Operation.mod);
         assertEquals(0, result, 0);
     }
 
+    @Test
+    public void testSinOperation2() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(Math.PI/2);
+        double result = calc.perform(Operation.sin);
+
+        assertEquals(1, result, 1e-9);
+    }
 
     @Test
-    public void failedModTest() throws Exception {
-
+    public void testSinOperation3() throws Exception {
         Calculator calc = new CalculatorImpl();
-        try {
-            calc.push(8);
-            calc.push(0);
-            calc.perform(Operation.mod);
+        calc.push(Math.PI);
+        double result = calc.perform(Operation.sin);
 
+        assertEquals(0, result, 1e-9);
+    }
 
-        } catch (CalculatorException e) {
-            assertEquals("Modulo by zero", e.getMessage());
-        }
+    @Test
+    public void testCosOperation() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(0);
+        double result = calc.perform(Operation.cos);
+
+        assertEquals(1, result, 0);
+    }
+
+    @Test
+    public void testCosOperation2() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(Math.PI);
+        double result = calc.perform(Operation.cos);
+
+        assertEquals(-1, result, 1e-9);
+    }
+
+    @Test
+    public void testCosOperation3() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(Math.PI / 2);
+        double result = calc.perform(Operation.cos);
+
+        assertEquals(0, result, 1e-9);
     }
 }
