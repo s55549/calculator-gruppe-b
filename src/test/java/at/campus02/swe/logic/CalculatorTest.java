@@ -53,9 +53,6 @@ public class CalculatorTest {
     }
 
 
-
-
-
     //
     @Test(expected = CalculatorException.class)
     public void testPopOnEmptyStack() throws Exception {
@@ -83,5 +80,44 @@ public class CalculatorTest {
             // e.getCause()
         }
 
+    }
+
+    @Test
+    public void testModOperation() throws Exception {
+
+        Calculator calc = new CalculatorImpl();
+        calc.push(7);
+        calc.push(3);
+        double result = calc.perform(Operation.mod);
+
+        assertEquals(1, result, 0);
+
+    }
+
+    @Test
+    public void testModOperation1() throws Exception {
+
+        Calculator calc = new CalculatorImpl();
+        calc.push(8);
+        calc.push(4);
+
+        double result = calc.perform(Operation.mod);
+        assertEquals(0, result, 0);
+    }
+
+
+    @Test
+    public void failedModTest() throws Exception {
+
+        Calculator calc = new CalculatorImpl();
+        try {
+            calc.push(8);
+            calc.push(0);
+            calc.perform(Operation.mod);
+
+
+        } catch (CalculatorException e) {
+            assertEquals("Modulo by zero", e.getMessage());
+        }
     }
 }
