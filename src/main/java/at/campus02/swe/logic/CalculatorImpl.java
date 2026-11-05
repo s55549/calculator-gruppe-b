@@ -37,7 +37,12 @@ public class CalculatorImpl implements Calculator {
             }
             case mod: {
                 double a = pop();
-                return a % b;
+                double c = a % b;
+                if (Double.isInfinite(c))
+                    throw new CalculatorException("Division by zero");
+                if (Double.isNaN(c))
+                    throw new CalculatorException("Invalid input for mod operation");
+                return c;
             }
             case sin: {
                 double sinResult = Math.sin(b);
@@ -51,12 +56,34 @@ public class CalculatorImpl implements Calculator {
                     throw new CalculatorException("Invalid input for cos operation");
                 return cosResult;
             }
+            case dotproduct: {
+                int n = (int) b;
+                if (n <= 0)
+                    throw new CalculatorException("Invalid input for dot product operation");
+
+                if (stack_.size() < 2 * n)
+                    throw new CalculatorException("Not enough elements in the stack for dot product operation");
+
+                double[] vector1 = new double[n];
+                for (int i = 0; i < n; i++) {
+                    vector1[i] = pop();
+                }
+
+                double[] vector2 = new double[n];
+                for (int i = n; i < n * 2; i++) {
+                    vector2[i - n] = pop();
+                }
+
+                double dotProduct = 0;
+                for (int i = 0; i < n; i++) {
+                    dotProduct += vector1[i] * vector2[i];
+                }
+
+                return dotProduct;
+            }
         }
         return 0;
     }
-
-    //TEST
-    //COMMIT
 
     @Override
     public double pop() throws CalculatorException {
