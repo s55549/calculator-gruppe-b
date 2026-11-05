@@ -82,6 +82,44 @@ public class CalculatorTest {
     }
 
     @Test
+    public void testModOperation() throws Exception {
+
+        Calculator calc = new CalculatorImpl();
+        calc.push(10.0);
+        calc.push(3);
+        double result = calc.perform(Operation.mod);
+
+        assertEquals(1, result, 0);
+
+    }
+
+    @Test
+    public void testModOperationNegative() throws Exception {
+
+        Calculator calc = new CalculatorImpl();
+        calc.push(-10.0);
+        calc.push(3);
+        double result = calc.perform(Operation.mod);
+
+        assertEquals(-1, result, 0);
+
+    }
+
+    @Test
+    public void testModOperationNegativeTest() throws Exception {
+
+        Calculator calc = new CalculatorImpl();
+        calc.push(10.0);
+        calc.push(0);
+        try {
+            double result = calc.perform(Operation.mod);
+            fail("Exception expected");
+        } catch (CalculatorException e) {
+            assertEquals("Invalid input for mod operation", e.getMessage());
+        }
+    }
+
+    @Test
     public void testSinOperation() throws Exception {
         Calculator calc = new CalculatorImpl();
         calc.push(0);
@@ -134,4 +172,77 @@ public class CalculatorTest {
 
         assertEquals(0, result, 1e-9);
     }
+
+    @Test
+    public void testDotProductOperation() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(2.0);
+        calc.push(3.0);
+        calc.push(1.0);
+
+        double result = calc.perform(Operation.dotproduct);
+
+        assertEquals(6, result, 0);
+    }
+
+    @Test
+    public void testDotProductOperation2() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(1.0);;
+        calc.push(3.0);
+        calc.push(2.0);
+        calc.push(4.0);
+        calc.push(2.0);
+        double result = calc.perform(Operation.dotproduct);
+        assertEquals(14, result, 0);
+    }
+
+    @Test
+    public void testDotProductOperationException() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(1.0);
+        calc.push(2.0);
+        calc.push(3.0);
+        calc.push(4.0);
+        calc.push(-1.0);
+        try {
+            double result = calc.perform(Operation.dotproduct);
+            fail("Exception expected");
+        } catch (CalculatorException e) {
+            assertEquals("Invalid input for dot product operation", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testDotProductOperationException2() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(1.0);
+        calc.push(2.0);
+        calc.push(3.0);
+        calc.push(2.0);
+        try {
+            double result = calc.perform(Operation.dotproduct);
+            fail("Exception expected");
+        } catch (CalculatorException e) {
+            assertEquals("Not enough elements in the stack for dot product operation", e.getMessage());
+        }
+    }
+
+    @Test
+    public void testDotProductOperationException3() throws Exception {
+        Calculator calc = new CalculatorImpl();
+        calc.push(1.0);
+        calc.push(2.0);
+        calc.push(3.0);
+        calc.push(4.0);
+        calc.push(0.0);
+        try {
+            double result = calc.perform(Operation.dotproduct);
+            fail("Exception expected");
+        } catch (CalculatorException e) {
+            assertEquals("Invalid input for dot product operation", e.getMessage());
+        }
+    }
+
+
 }

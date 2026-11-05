@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.io.File;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class EndToEndTest {
 
@@ -48,5 +49,26 @@ public class EndToEndTest {
         double result = parser.parse(new File("src/test/resources/cos-zero.xml"));
 
         assertEquals(1, result, 0);
+    }
+
+    @Test
+    public void testDotProduct() throws Exception {
+        Calculator calculator = new CalculatorImpl();
+        Parser parser = new Parser(calculator);
+
+        double result = parser.parse(new File("src/test/resources/dotproduct.xml"));
+
+        assertEquals(14, result, 0);
+    }
+
+    @Test
+    public void testDotProductIssue() throws Exception {
+        Calculator calculator = new CalculatorImpl();
+        Parser parser = new Parser(calculator);
+
+        double result = parser.parse(new File("src/test/resources/dotproduct-issue.xml"));
+
+        assertEquals(2, result, 0);
+
     }
 }
